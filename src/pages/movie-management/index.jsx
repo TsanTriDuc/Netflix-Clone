@@ -1,4 +1,14 @@
-import { Button, Form, Image, Input, Modal, Table, Upload } from "antd";
+import {
+  Button,
+  Form,
+  Image,
+  Input,
+  Modal,
+  Popconfirm,
+  Select,
+  Table,
+  Upload,
+} from "antd";
 import FormItem from "antd/es/form/FormItem";
 import TextArea from "antd/es/input/TextArea";
 import axios from "axios";
@@ -11,6 +21,15 @@ function MoviesManagement() {
   const [formMovies] = useForm();
   const [dataSource, setDataSource] = useState([]);
   const [invesible, setInvesible] = useState(false);
+
+  const handleDeleteMoive = async (id) => {
+    await axios.delete(
+      `https://6633ee64f7d50bbd9b4b1fef.mockapi.io/Movie/${id}`
+    );
+    const listAfterDelete = dataSource.filter((moive) => moive.id !== id);
+    setDataSource(listAfterDelete);
+  };
+
   const columns = [
     {
       title: "Movie name",
@@ -22,6 +41,24 @@ function MoviesManagement() {
       dataIndex: "poster_path",
       key: "poster_path",
       render: (poster_path) => <Image src={poster_path} width={150} />,
+    },
+    {
+      title: "Action",
+      dataIndex: "id",
+      key: "id",
+      render: (id) => (
+        <Popconfirm
+          title="Delete the task"
+          description="Are you sure to delete this task"
+          onConfirm={() => handleDeleteMoive(id)}
+          cancelText="No"
+          okText="Yes"
+        >
+          <Button type="primary" danger>
+            Delete
+          </Button>
+        </Popconfirm>
+      ),
     },
   ];
 
@@ -129,7 +166,14 @@ function MoviesManagement() {
             <Input />
           </FormItem>
           <FormItem label="Categrogy" name="categrory">
-            <Input />
+            <Select
+              options={[
+                { value: "Trending", label: <span>Trending</span> },
+                { value: "Comedy", label: <span>Comedy</span> },
+                { value: "Action", label: <span>Action</span> },
+                { value: "Horror", label: <span>Horror</span> },
+              ]}
+            />
           </FormItem>
           <FormItem label="Poster" name="poster_path">
             <Upload

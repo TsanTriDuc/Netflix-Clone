@@ -4,25 +4,52 @@
     justify-content: space-between;
     padding: 10px 300px;
     position: fixed;
+
+    position: relative;
     top: 0;
     right: 0;
     left: 0;
     z-index: 10;
     
-}
 
-ul{
-    display: flex;
-    gap: 30px;
-    list-style: none;
-
-    a{
-        text-decoration: none;
-        color: white;
+    &__search{
+        position: absolute;
+        top: -100%;
+        left: 0;
+        right: 0;
+        background-color: white;
+        padding: 10px 200px;
+        display: flex;
+        transition: all 0.5s;
+        input{
+            flex-grow: 1;
+            border: none;
+            outline: none;
+            font-size: 20px;
+        }
+        &.active{
+            top: 100%
+        }
     }
 
-    li{
-        font-size: 20px;
-        color: #fff;
+    &__nav{
+        ul{
+            display: flex;
+            gap: 30px;
+            list-style: none;
+            cursor: pointer;
+        
+            a{
+                text-decoration: none;
+                color: white;
+            }
+        
+            li{
+                font-size: 20px;
+                color: #fff;
+            }
+        }
     }
 }
+
+

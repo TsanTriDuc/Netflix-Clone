@@ -1,11 +1,10 @@
 import Carousel from "../../components/carousel";
-import Header from "../../components/header";
 
 function HomePage() {
   return (
     <div>
-      <Header />
-      <Carousel />
+      <Carousel numberOfSlide={1} category={"Comedy"} autoplay />
+      <Carousel numberOfSlide={6} category={"Trending"} />
     </div>
   );
 }
